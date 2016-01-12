@@ -26,11 +26,11 @@ public class SubWordHelper {
         // Takes a 4-byte input word and applies the s-box, generating an output
         Word out = new Word();
 
-        for(int i = 0; i < 4; i++) {
+        for(int i = 0; i < 8; i+=2) {
             int sBoxValue = sBox[in.getNibbleAt(i)][in.getNibbleAt(i+1)];
             // If this doesn't work - http://stackoverflow.com/questions/2188660/convert-short-to-byte-in-java
-            int sBox1 = sBoxValue & 0x0000ff00;
-            int sBox2 = sBoxValue & 0x000000ff;
+            int sBox1 = (sBoxValue & 0xf0) >> 4;
+            int sBox2 = sBoxValue & 0x0f;
             out.setNibbleAt(i, sBox1);
             out.setNibbleAt(i+1, sBox2);
         }

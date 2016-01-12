@@ -40,14 +40,4 @@ public class WordHelper {
     private static int xorNibble(int n1, int n2) {
         return n1 ^ n2;
     }
-
-    public static Word xor(Word a, int b) {
-        Word intToWord = new Word();
-        for(int i = 0; i < 8; i++) {
-            int right = b % 10;
-            intToWord.setNibbleAt(i, right);
-            b /= 10;
-        }
-        return xor(a,intToWord);
-    }
 }
