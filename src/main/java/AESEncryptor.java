@@ -1,12 +1,18 @@
+import java.math.BigInteger;
+
 /**
  * Created by josepher on 1/11/16.
  */
 public class AESEncryptor {
 
-    public static void cipher() {
+    public static void cipher(String keyAsString) {
 
-        // generate S-Box - where does the s-box come from? is it really hard-coded?
-        // generate key schedule word[Nk+1][4] from cypher key
+        Word[] key = WordHelper.toWordArray(keyAsString);
+        int nK = key.length;
+        Word[] keySchedule = KeyExpander.expandCypherKey(nK, key);
+
+        // Test
+        System.out.println("STOP HERE");
 
         // add first round
         // AddRoundKey

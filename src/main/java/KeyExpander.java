@@ -21,11 +21,11 @@ public class KeyExpander {
     /**
      *
      * @param nK: only acceptable values are 4, 6, or 8 (128, 192, or 256-bit encryption)
-     * @param nR: the number of rounds for the encryption algorithm
      * @return The Key Schedule as an array of Words.
      */
-    public static Word[] expandCypherKey(int nK, int nR, Word[] key) {
+    public static Word[] expandCypherKey(int nK, Word[] key) {
 
+        int nR = detNR(nK);
         int ROUNDS = nR+1;
         short nB = 4;
 
@@ -40,8 +40,13 @@ public class KeyExpander {
         for(int i=nK; i<(nB*ROUNDS); i++) {
             temp = keySchedule[i-1];
             if(i % nK == 0) {
-//                temp =
+                temp = rotWord(temp);
+                temp = SubWordHelper.subWord(temp);
+                temp = WordHelper.xor(temp, rcon[i/nK]);
+            } else if((nK > 6) && (i % nK == 4)) {
+                SubWordHelper.subWord(temp);
             }
+            keySchedule[i] = WordHelper.xor(keySchedule[i-nK], temp);
         }
 
 
@@ -57,7 +62,15 @@ public class KeyExpander {
                 in.getNibbleAt(0),in.getNibbleAt(1));
     }
 
-    private static void getRCon(short idx) {
-        // returns the value of rcon
+    private static int detNR(int nK) {
+        if(nK == 4)
+            return 10;
+        if(nK == 6)
+            return 12;
+        if(nK == 8)
+            return 14;
+
+        throw new IllegalArgumentException("nK is not 4, 6, or 8");
     }
+
 }

@@ -43,4 +43,12 @@ public class Word {
     public void setNibbleAt(int idx, int nibble) {
         contents[idx] = nibble;
     }
+
+    public String toString() {
+        String temp = "";
+        for(int i = 0; i < contents.length; i++) {
+            temp += HexHelper.getHexValueFromDecimal(contents[i]);
+        }
+        return temp;
+    }
 }
