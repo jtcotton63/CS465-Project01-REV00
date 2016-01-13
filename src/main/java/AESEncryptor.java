@@ -57,9 +57,7 @@ public class AESEncryptor {
         printKeyScheduleUpdate(out, keySchedule, (ROUNDS - 1));
         addRoundKey(state, keySchedule);
 
-        out.println("round[" + (ROUNDS - 1) + "].output " + state.toString());
-        out.println();
-        out.println();
+        out.print("round[" + (ROUNDS - 1) + "].output " + state.toString());
         out.flush();
         out.close();
         return state.toString();

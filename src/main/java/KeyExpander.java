@@ -41,7 +41,7 @@ public class KeyExpander {
                 temp = SubWordHelper.subWord(temp);
                 temp = getRCONValue(temp, i, nK);
             } else if((nK > 6) && (i % nK == 4)) {
-                SubWordHelper.subWord(temp);
+                temp = SubWordHelper.subWord(temp);
             }
             keySchedule[i] = WordHelper.xor(keySchedule[i-nK], temp);
         }
