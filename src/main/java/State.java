@@ -21,9 +21,9 @@ public class State {
     }
 
     public String toString() {
-        return columns[0].toString() + " " +
-               columns[1].toString() + " " +
-               columns[2].toString() + " " +
+        return columns[0].toString() +
+               columns[1].toString() +
+               columns[2].toString() +
                columns[3].toString();
     }
 }

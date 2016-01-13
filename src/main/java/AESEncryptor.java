@@ -1,36 +1,67 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.PrintStream;
+
 /**
  * Created by josepher on 1/11/16.
  */
 public class AESEncryptor {
 
-    static int keyScheduleIdx = 0;
+    static int keyScheduleIdx;
 
     public static String cipher(String data, String keyAsString) {
 
+        File file = new File("output.txt");
+        if(file.exists())
+            file.delete();
+
+        PrintStream out = null;
+        try {
+            out = new PrintStream(new FileOutputStream(file, true));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         Word[] key = WordHelper.toWordArray(keyAsString);
         int nK = key.length;
         int nR = detNR(nK);
         int ROUNDS = nR+1;
         State state = prepState(data);
+        out.println(genRndOutput(0) + "input " + state.toString());
         Word[] keySchedule = KeyExpander.expandCypherKey(nK, ROUNDS, key);
         keyScheduleIdx = 0;
+        printKeyScheduleUpdate(out, keySchedule, 0);
 
         // Input round
         addRoundKey(state, keySchedule);
 
         // nR - 1 rounds
         for(int round = 1; round < ROUNDS - 1; round++) {
-            subBytes(state, nK);
+            out.println(genRndOutput(round) + "start " + state.toString());
+            subBytes(state);
+            out.println(genRndOutput(round) + "s_box " + state.toString());
             shiftRows(state);
+            out.println(genRndOutput(round) + "s_row " + state.toString());
             state = MixColumnsHelper.mixColumns(state);
+            out.println(genRndOutput(round) + "m_col " + state.toString());
+                    printKeyScheduleUpdate(out, keySchedule, round);
             addRoundKey(state, keySchedule);
         }
 
-        // Last rounds
-        subBytes(state, nK);
+        // Last round
+        out.println("round[" + (ROUNDS - 1) + "].start " + state.toString());
+        subBytes(state);
+        out.println("round[" + (ROUNDS - 1) + "].s_box " + state.toString());
         shiftRows(state);
+        out.println("round[" + (ROUNDS - 1) + "].s_row " + state.toString());
+        printKeyScheduleUpdate(out, keySchedule, (ROUNDS - 1));
         addRoundKey(state, keySchedule);
 
+        out.println("round[" + (ROUNDS - 1) + "].output " + state.toString());
+        out.println();
+        out.println();
+        out.flush();
+        out.close();
         return state.toString();
 
     }
@@ -60,8 +91,8 @@ public class AESEncryptor {
         return state;
     }
 
-    private static void subBytes(State state, int nK) {
-        for(int i = 0; i < nK; i++) {
+    private static void subBytes(State state) {
+        for(int i = 0; i < 4; i++) {
             state.setColumn(i, SubWordHelper.subWord(state.getColumn(i)));
         }
     }
@@ -100,4 +131,23 @@ public class AESEncryptor {
         }
     }
 
+    private static String genRndOutput(int roundNum) {
+        String num = null;
+        if(roundNum < 10) {
+            num = " " + roundNum;
+        } else {
+            num = String.valueOf(roundNum);
+        }
+
+        return "round[" + num + "].";
+    }
+
+    private static void printKeyScheduleUpdate(PrintStream out, Word[] keySchedule, int roundNum) {
+        out.println(genRndOutput(roundNum) + "k_sch " +
+                    keySchedule[keyScheduleIdx].toString() +
+                    keySchedule[keyScheduleIdx+1].toString() +
+                    keySchedule[keyScheduleIdx+2].toString() +
+                    keySchedule[keyScheduleIdx+3].toString()
+        );
+    }
 }
