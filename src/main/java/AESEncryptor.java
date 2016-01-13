@@ -10,7 +10,7 @@ public class AESEncryptor {
     static int nR = -1;
     static int ROUNDS = -1;
 
-    public static void cipher(String data, String keyAsString) {
+    public static String cipher(String data, String keyAsString) {
 
         Word[] key = WordHelper.toWordArray(keyAsString);
         nK = key.length;
@@ -27,7 +27,6 @@ public class AESEncryptor {
             subBytes();
             shiftRows();
             state = MixColumnsHelper.mixColumns(state);
-            System.out.println("STOP HERE");
             addRoundKey();
         }
 
@@ -35,6 +34,9 @@ public class AESEncryptor {
         subBytes();
         shiftRows();
         addRoundKey();
+
+        return state.toString();
+
     }
 
     private static int detNR() {

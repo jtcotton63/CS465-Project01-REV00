@@ -19,4 +19,11 @@ public class State {
     public void setColumn(int idx, Word column) {
         columns[idx] = column;
     }
+
+    public String toString() {
+        return columns[0].toString() + " " +
+               columns[1].toString() + " " +
+               columns[2].toString() + " " +
+               columns[3].toString();
+    }
 }

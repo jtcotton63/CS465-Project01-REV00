@@ -50,7 +50,7 @@ public class MixColumnsHelper {
                 toBeXORed.add(temp);
             multiplier = multiplier >> 1;
         }
-        
+
         return xorAll(toBeXORed);
     }
 
