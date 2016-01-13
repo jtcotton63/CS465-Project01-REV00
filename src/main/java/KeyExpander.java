@@ -23,10 +23,7 @@ public class KeyExpander {
      * @param nK: only acceptable values are 4, 6, or 8 (128, 192, or 256-bit encryption)
      * @return The Key Schedule as an array of Words.
      */
-    public static Word[] expandCypherKey(int nK, Word[] key) {
-
-        int nR = detNR(nK);
-        int ROUNDS = nR+1;
+    public static Word[] expandCypherKey(int nK, int ROUNDS, Word[] key) {
         int nB = 4;
 
         // Add the cypher key first
@@ -58,17 +55,6 @@ public class KeyExpander {
                 in.getNibbleAt(4),in.getNibbleAt(5),
                 in.getNibbleAt(6),in.getNibbleAt(7),
                 in.getNibbleAt(0),in.getNibbleAt(1));
-    }
-
-    private static int detNR(int nK) {
-        if(nK == 4)
-            return 10;
-        if(nK == 6)
-            return 12;
-        if(nK == 8)
-            return 14;
-
-        throw new IllegalArgumentException("nK is not 4, 6, or 8");
     }
 
     private static Word getRCONValue(Word a, int i, int nK) {
