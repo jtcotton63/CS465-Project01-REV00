@@ -3,13 +3,24 @@
  */
 public class WordHelper {
 
+    public static int getByteValue(int nibble1, int nibble2) {
+        return (nibble1 << 4) + nibble2;
+    }
+
+    public static int getLeftNibble(int byteVal) {
+        return (byteVal & 0xf0) >> 4;
+    }
+
+    public static int getRightNibble(int byteVal) {
+        return byteVal & 0x0f;
+    }
+
     public static Word[] toWordArray(String s) {
         int numWords = s.length() / 8;
         if(!((numWords == 4) || (numWords == 6) || (numWords == 8)))
             throw new IllegalArgumentException("Input string length incorrect");
 
         Word[] wordArray = new Word[numWords];
-//        String[] sArray = s.split("(?<=\\G.{1})"); // http://stackoverflow.com/questions/3760152/split-string-to-equal-length-substrings-in-java
         char[] sArray = s.toCharArray();
 
         for(int i = 0; i < sArray.length; i=i+8) {

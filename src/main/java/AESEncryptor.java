@@ -26,15 +26,15 @@ public class AESEncryptor {
         for(int round = 1; round < ROUNDS - 1; round++) {
             subBytes();
             shiftRows();
+            state = MixColumnsHelper.mixColumns(state);
             System.out.println("STOP HERE");
-            //MixColumns
-            //AddRoundKey
+            addRoundKey();
         }
 
         // Last rounds
-        //SubBytes
-        //ShiftRows
-        //AddRoundKey
+        subBytes();
+        shiftRows();
+        addRoundKey();
     }
 
     private static int detNR() {
@@ -48,6 +48,7 @@ public class AESEncryptor {
         throw new IllegalArgumentException("nK is not 4, 6, or 8");
     }
 
+    // This is a duplicate function; should be combined with WordHelper.toWordArray
     private static void prepState(String data) {
         state = new State();
         int dataIdx = 0;

@@ -60,10 +60,10 @@ public class KeyExpander {
     private static Word getRCONValue(Word a, int i, int nK) {
         int r = rcon[i/nK];
         Word intToWord = new Word();
-        int b1 = (r & 0xf0) >> 4;
-        int b2 = r & 0x0f;
-        intToWord.setNibbleAt(0, b1);
-        intToWord.setNibbleAt(1, b2);
+        int n1 = WordHelper.getLeftNibble(r);
+        int n2 = WordHelper.getRightNibble(r);
+        intToWord.setNibbleAt(0, n1);
+        intToWord.setNibbleAt(1, n2);
         return WordHelper.xor(a, intToWord);
     }
 
