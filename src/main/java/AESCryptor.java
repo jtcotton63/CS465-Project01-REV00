@@ -103,11 +103,18 @@ public class AESCryptor {
             state = MixColumnsHelper.mixColumns(state, MixColumnsHelper.invMixColsTransMtrx);
         }
 
+        out.println(genRndOutput(ROUNDS - 1) + "istart " + state.toString());
+        invShiftRows(state);
+        out.println(genRndOutput(ROUNDS - 1) + "is_row " + state.toString());
+        subBytes(state, SubWordHelper.invSBox);
+        out.println(genRndOutput(ROUNDS - 1) + "is_box " + state.toString());
+        printKeyScheduleUpdate(out, keySchedule, (ROUNDS - 1), "ik_sch");
+        addRoundKey(state, keySchedule);
+
+        out.print(genRndOutput(ROUNDS - 1) + "ioutput " + state.toString());
+        out.flush();
+        out.close();
         
-
-
-
-
         return state.toString();
     }
 
