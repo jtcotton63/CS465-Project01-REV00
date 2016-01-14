@@ -23,7 +23,7 @@ public class KeyExpander {
      * @param nK: only acceptable values are 4, 6, or 8 (128, 192, or 256-bit encryption)
      * @return The Key Schedule as an array of Words.
      */
-    public static Word[] expandCypherKey(int nK, int ROUNDS, Word[] key) {
+    public static Word[] expandCipherKey(int nK, int ROUNDS, Word[] key) {
         int nB = 4;
 
         // Add the cypher key first
@@ -38,10 +38,10 @@ public class KeyExpander {
             temp = keySchedule[i-1];
             if(i % nK == 0) {
                 temp = rotWord(temp);
-                temp = SubWordHelper.subWord(temp);
+                temp = SubWordHelper.subWord(temp, SubWordHelper.sBox);
                 temp = getRCONValue(temp, i, nK);
             } else if((nK > 6) && (i % nK == 4)) {
-                temp = SubWordHelper.subWord(temp);
+                temp = SubWordHelper.subWord(temp, SubWordHelper.sBox);
             }
             keySchedule[i] = WordHelper.xor(keySchedule[i-nK], temp);
         }

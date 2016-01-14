@@ -7,13 +7,16 @@ import java.util.List;
 public class MixColumnsHelper {
 
     private static String mixColsTransMtrxString = "02030101010203010101020303010102";
-    private static Word[] mixColsTransMtrx = WordHelper.toWordArray(mixColsTransMtrxString);
+    public static Word[] mixColsTransMtrx = WordHelper.toWordArray(mixColsTransMtrxString);
+    private static String invMixColsTransMtrxString = "0e0b0d09090e0b0d0d090e0b0b0d090e";
+    public static Word[] invMixColsTransMtrx = WordHelper.toWordArray(invMixColsTransMtrxString);
 
-    public static State mixColumns(State state) {
+
+    public static State mixColumns(State state, Word[] matrix) {
         State newState = new State();
         for (int col = 0; col < 4; col++) {
             for (int row = 0; row < 8; row += 2) {
-                int byteVal = ffMultiply(state.getColumn(col), mixColsTransMtrx[row/2]);
+                int byteVal = ffMultiply(state.getColumn(col), matrix[row/2]);
                 newState.getColumn(col).setNibbleAt(row, WordHelper.getLeftNibble(byteVal));
                 newState.getColumn(col).setNibbleAt(row + 1, WordHelper.getRightNibble(byteVal));
             }

@@ -15,6 +15,21 @@ public class WordHelper {
         return byteVal & 0x0f;
     }
 
+    public static Word[] reverseWordArray(Word[] in) {
+        Word[] out = new Word[in.length];
+
+        int inIdx = 0;
+        for(int i = in.length - 1; i >= 0; i-=4) {
+            out[i-3] = in[inIdx];
+            out[i-2] = in[inIdx+1];
+            out[i-1] = in[inIdx+2];
+            out[i] = in[inIdx+3];
+            inIdx +=4;
+        }
+
+        return out;
+    }
+
     public static Word[] toWordArray(String s) {
         int numWords = s.length() / 8;
         if(!((numWords == 4) || (numWords == 6) || (numWords == 8)))
