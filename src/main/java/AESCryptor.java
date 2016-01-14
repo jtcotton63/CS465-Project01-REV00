@@ -83,7 +83,7 @@ public class AESCryptor {
         State state = prepState(data);
         out.println(genRndOutput(0) + "iinput " + state.toString());
         Word[] tempSchedule = KeyExpander.expandCipherKey(nK, ROUNDS, key);
-        Word[] keySchedule = WordHelper.reverseWordArray(tempSchedule);
+        Word[] keySchedule = WordHelper.reverseWordArray(tempSchedule, ROUNDS);
         keyScheduleIdx = 0;
         printKeyScheduleUpdate(out, keySchedule, 0, "ik_sch");
 

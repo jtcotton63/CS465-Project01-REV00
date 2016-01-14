@@ -15,11 +15,14 @@ public class WordHelper {
         return byteVal & 0x0f;
     }
 
-    public static Word[] reverseWordArray(Word[] in) {
+    public static Word[] reverseWordArray(Word[] in, int ROUNDS) {
         Word[] out = new Word[in.length];
 
+        if(!(ROUNDS == 11 || ROUNDS == 13 || ROUNDS == 15))
+            throw new IllegalArgumentException("ROUNDS cannot be " + ROUNDS + "; can only be 11, 13, or 15");
+
         int inIdx = 0;
-        for(int i = in.length - 1; i >= 0; i-=4) {
+        for(int i = (ROUNDS*4) - 1; i >= 0; i-=4) {
             out[i-3] = in[inIdx];
             out[i-2] = in[inIdx+1];
             out[i-1] = in[inIdx+2];
