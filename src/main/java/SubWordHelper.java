@@ -1,6 +1,3 @@
-/**
- * Created by josepher on 1/12/16.
- */
 public class SubWordHelper {
 
     public static int[][] sBox = {

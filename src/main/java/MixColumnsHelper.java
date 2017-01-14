@@ -1,9 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by josepher on 1/12/16.
- */
 public class MixColumnsHelper {
 
     private static String mixColsTransMtrxString = "02030101010203010101020303010102";

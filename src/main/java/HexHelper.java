@@ -1,6 +1,3 @@
-/**
- * Created by josepher on 1/12/16.
- */
 public class HexHelper {
     public static int getDecimalValueFromHex(char c) {
         if(Character.isDigit(c))

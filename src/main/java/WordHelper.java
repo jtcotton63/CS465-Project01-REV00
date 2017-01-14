@@ -1,6 +1,3 @@
-/**
- * Created by josepher on 1/12/16.
- */
 public class WordHelper {
 
     public static int getByteValue(int nibble1, int nibble2) {

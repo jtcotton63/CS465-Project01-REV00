@@ -1,5 +1,4 @@
 /**
- * Created by josepher on 1/11/16.
  * Represents a data type of 4 bytes (32 bits)
  * @formatter:off
  */

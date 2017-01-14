@@ -1,6 +1,3 @@
-/**
- * Created by josepher on 1/11/16.
- */
 public class KeyExpander {
 
     private static int[] rcon = { 0x00, // Rcon[] is 1-based, so the first entry is just a place holder

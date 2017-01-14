@@ -3,9 +3,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
 
-/**
- * Created by josepher on 1/11/16.
- */
 public class AESCryptor {
 
     static int keyScheduleIdx;
