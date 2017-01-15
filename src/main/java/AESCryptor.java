@@ -7,9 +7,9 @@ public class AESCryptor {
 
     static int keyScheduleIdx;
 
-    public static String cipher(String data, String keyAsString) {
+    public static String cipher(String filename, String data, String keyAsString) {
 
-        File file = new File("output.txt");
+        File file = new File(filename);
         if(file.exists())
             file.delete();
 
@@ -61,11 +61,9 @@ public class AESCryptor {
 
     }
 
-    public static String decipher(String data, String keyAsString) {
+    public static String decipher(String filename, String data, String keyAsString) {
 
-        File file = new File("output.txt");
-        if(file.exists())
-            file.delete();
+        File file = new File(filename);
 
         PrintStream out = null;
         try {
@@ -78,6 +76,8 @@ public class AESCryptor {
         int nR = detNR(nK);
         int ROUNDS = nR+1;
         State state = prepState(data);
+        out.println();
+        out.println();
         out.println(genRndOutput(0) + "iinput " + state.toString());
         Word[] tempSchedule = KeyExpander.expandCipherKey(nK, ROUNDS, key);
         Word[] keySchedule = WordHelper.reverseWordArray(tempSchedule, ROUNDS);

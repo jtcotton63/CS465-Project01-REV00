@@ -4,4 +4,4 @@
 *.ipr
 *.iws
 out/*
-output.txt
+*.txt

@@ -3,9 +3,15 @@ import java.util.List;
 
 public class MixColumnsHelper {
 
-    private static String mixColsTransMtrxString = "02030101010203010101020303010102";
+    private static String mixColsTransMtrxString = "02030101" +
+            "01020301" +
+            "01010203" +
+            "03010102";
     public static Word[] mixColsTransMtrx = WordHelper.toWordArray(mixColsTransMtrxString);
-    private static String invMixColsTransMtrxString = "0e0b0d09090e0b0d0d090e0b0b0d090e";
+    private static String invMixColsTransMtrxString = "0e0b0d09" +
+            "090e0b0d" +
+            "0d090e0b" +
+            "0b0d090e";
     public static Word[] invMixColsTransMtrx = WordHelper.toWordArray(invMixColsTransMtrxString);
 
 
@@ -38,7 +44,7 @@ public class MixColumnsHelper {
         if(multiplier == 1)
             return byteVal;
 
-        List<Integer> toBeXORed = new ArrayList();
+        List<Integer> toBeXORed = new ArrayList<>();
         if(multiplier % 2 ==1)
             toBeXORed.add(byteVal);
         multiplier = multiplier >> 1;
